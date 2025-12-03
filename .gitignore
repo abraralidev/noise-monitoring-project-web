@@ -1,0 +1,13 @@
+# Local environment files (never commit secrets)
+.env
+supabase.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Editors/OS
+.DS_Store
+.vscode/
+.idea/
+.venv/

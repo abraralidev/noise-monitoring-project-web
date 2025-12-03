@@ -1,0 +1,24 @@
+name: supabase-daily
+
+on:
+  schedule:
+    - cron: "10 16 * * *"   # 00:10 SGT daily
+  workflow_dispatch: {}
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run Daily ETL (yesterday SGT)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+        run: |
+          python supabase_daily.py
